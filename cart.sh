@@ -13,3 +13,6 @@ unzip /tmp/cart.zip
 
 cd /app
 npm install
+
+systemctl enable cart
+systemctl start cart
