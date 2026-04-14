@@ -1,8 +1,8 @@
-dnf module disable nodejs -y
-dnf module enable nodejs:20 -y
+source ./common.sh
 
-dnf install nodejs -y
 cp cart.service /etc/systemd/system/cart.service
+
+NODEJS
 
 useradd roboshop
 mkdir /app
