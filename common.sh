@@ -16,7 +16,6 @@ NODEJS(){
   npm install
 
   cp $dir_path/$app_name.service /etc/systemd/system/$app_name.service
-  echo $dir_path/$app_name.service
 
   systemctl daemon-reload
   systemctl enable $app_name
