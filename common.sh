@@ -26,7 +26,9 @@ SYSTEMD_SETUP(){
 APP_PREREQ(){
   echo Create Application User
   id roboshop &>>$log_file
+  if [ $? -eq 1 ]; then
   useradd roboshop &>>$log_file
+  fi
   Status_Print $?
 
   echo Remove Application Directory
