@@ -25,6 +25,7 @@ SYSTEMD_SETUP(){
 
 APP_PREREQ(){
   echo Create Application User
+  id roboshop &>>$log_file
   useradd roboshop &>>$log_file
   Status_Print $?
 
