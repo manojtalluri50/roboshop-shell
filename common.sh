@@ -6,7 +6,11 @@ SYSTEMD_SETUP(){
 
   echo Copy Application Service File
   cp $dir_path/$app_name.service /etc/systemd/system/$app_name.service &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo SUCCESS
+  else
+    echo FAILURE
+   fi
 
   echo Start Application
   systemctl daemon-reload &>>$log_file
