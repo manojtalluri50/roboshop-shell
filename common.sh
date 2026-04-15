@@ -16,52 +16,92 @@ SYSTEMD_SETUP(){
   systemctl daemon-reload &>>$log_file
   systemctl enable $app_name &>>$log_file
   systemctl start $app_name &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+     fi
 }
 
 APP_PREREQ(){
   echo Create Application User
   useradd roboshop &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   echo Remove Application Directory
   rm -rf /app &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   echo Create Application Directory
   mkdir /app &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   echo Download Application Code
   curl -L -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   cd /app &>>$log_file
 
   echo Extract Application Code
   unzip /tmp/$app_name.zip &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
 }
 
 NODEJS(){
   echo Disable Default NodeJS Version
   dnf module disable nodejs -y &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   echo Enable NodeJS 20 Version
   dnf module enable nodejs:20 -y &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   echo Install NodeJS
   dnf install nodejs -y &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   APP_PREREQ
 
   echo Install NodeJS Dependencies
   npm install &>>$log_file
-  echo $?
+  if [ $? -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+  fi
 
   SYSTEMD_SETUP
 }
